@@ -2,8 +2,6 @@
 
 #include <boost/algorithm/string/case_conv.hpp>
 #include <fstream>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/writer.h>
 #include <string>
 #include <algorithm>
 #include <jsoncpp/json/json.h>
