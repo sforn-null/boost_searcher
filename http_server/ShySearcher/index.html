@@ -11,211 +11,121 @@
             padding: 0;
         }
 
-        /* html, body 也是选择器, 标签选择器, 表示选中了 html 和 body 标签.  */
         html,
         body {
-            /* 设置高度, 把高度设为和父级元素一样高 */
-            /* 为了让 html 和 body 和浏览器的可视区域一样高 */
             height: 100%;
             background-color: #f3f3f3;
         }
 
         body {
-            /* 添加背景图片, 让页面更好看一些 */
             background-image: url("cat.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
         }
 
-        /* 设置 container 的样式 */
-        /*
-           .container 是 类选择器. 和下面标签的 class 属性对应, CSS
-           中创建类的时候, 需要用 . 开头, html 引用类的时候不要加 . 
-        */
         .container {
-            /* 设置宽度为 800 个像素 */
             width: 800px;
-            /* 设置高度和父元素一样高 */
             height: 100%;
-            /* 让这个水平居中 */
             margin: 0 auto;
-            /* 给 container 设置半透明效果, 让给背景看起来更梦幻一些 */
             background-color: rgba(255, 255, 255, 0.4);
-            /* 当内容太多的时候, 自动加上滚动条 */
             overflow: auto;
         }
 
-        /* 设置搜索框和搜索按钮的样式 */
         .header {
-            /* 设置宽度和父元素一样宽(800px) */
             width: 100%;
             height: 50px;
         }
 
-        /* 复合选择器. 搭配了类选择器+标签选择器, 表示找 class 为 header 标签内部的 input 标签 */
         .header input {
-            /* 设置宽度为 600px */
             width: 600px;
-            /* 设置高度为 50px */
             height: 50px;
-            /* 设置字体大小大一点 */
             font-size: 22px;
-            /* 让文字不要紧贴着边缘 */
             padding-left: 10px;
-            /* 增加浮动, 让 input 和按钮贴在一起 */
             float: left;
         }
 
-        /* 复合选择器, 选择 class 为 header 标签内部的 button 标签 */
         .header button {
             width: 100px;
             height: 50px;
             color: #fff;
             background-color: rgb(0, 128, 255);
             font-size: 22px;
-            /* 增加浮动, 让 input 和按钮贴在一起 */
             float: left;
         }
 
-        /* 设置搜索结果的样式 */
         .item {
             width: 100%;
-            /* 设置上外边距, 让结果之间有一定的 间隔 */
             margin-top: 20px;
         }
 
-        /* 设置标题的样式 */
         .item a {
-            /* 把 a 设为块级元素. a 默认是行内元素, 无法设置宽高. */
             display: block;
-            /* 设置尺寸 */
             width: 100%;
             height: 40px;
-            /* 设置字体大小 */
             font-size: 22px;
-            /* 字体能够垂直居中, 让行高和高度相等即可 */
             line-height: 40px;
-            /* 让字体粗一些 */
             font-weight: 700;
-            /* 去掉 a 标签的下划线 */
             text-decoration: none;
-            /* 修改字体颜色 */
             color: rgb(0, 128, 255);
         }
-
-        /* 设置描述样式 */
         .item p {
             font-size: 16px;
         }
 
-        /* 设置展示 url 的 样式 */
         .item i {
             font-size: 16px;
             color: rgb(0, 128, 0);
-            /* 默认 i 标签是斜体字, 这是把字正回来 */
             font-style: normal;
         }
     </style>
 </head>
 
 <body>
-    <!-- div 是 html 中最常用的 标签, 没有之一. 没有具体语义, 只表示一个矩形盒子 -->
-    <!-- class 属性相当于给 div 起了个名字, 通过这个名字后面可以进行指定样式 -->
     <div class="container">
-        <!-- 放置首行内容, 搜索框 + 搜索按钮 -->
         <div class="header">
-            <!-- input 标签表示输入框, 这里作为搜索框 -->
             <input type="search">
-            <!-- button 表示搜索按钮 -->
-            <!-- onclick 表示点击该按钮时, 就会调用 JS 中的 search 函数 -->
             <button onclick="search()">搜索</button>
         </div>
-
-        <!-- 放置若干个搜索结果 -->
         <div class="result">
 
         </div>
     </div>
-    <!-- JS 引入第三方库非常简单, 只要引入相关的 CDN 链接即可. -->
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script>
-        // 页面有了 html CSS 只是有了基本的布局和样式. 但是页面是死的, 无法和用户交互. 
-        // 为了让页面活起来, 就需要使用 JavaScript 来赋予页面灵魂. 
-        // JS 代码需要写到 script 标签中的.  (JS 和 Java 之间没有半毛钱关系)
-        // JS 要做的事情: 
-        // 当用户点击搜索按钮时, 就要获取到搜索框的内容, 构造 http 请求发送给服务器. 
-        // 在把响应结果构造到页面上显示. 
-        // 为了比较方便的做到这样的事情, 引入 JQuery 这个来简化开发
-
-        // 要让点击按钮操作关联上一个函数
-        // JS 在定义函数时, 不需要指定返回值类型(类型是可以运行时改变的), 也不需要指定参数类型. 
-        // 使用 function 关键字作为起始. 其他语法和 C++ 就很像了. 
         function search() {
-            // // alert 功能就是弹出一个提示对话框
-            // alert("hello");
-            // 1. 获取到搜索框中的查询词
-            //    此处使用 JQuery 的语法. $ 是 JQuery 中的一个特殊对象. 参数里的内容是一个 CSS 选择器, 表示要选中某个元素. 
-            //    接下来通过  val() 函数就得到了输入框的内容
             let query = $(".header input").val();
-            // 这个代码就相当于 printf, 往控制台打印, 可以在 chrome 的开发者工具中看到这个内容
             console.log("query: " + query);
-            // 2. 构造 HTTP 请求发送给服务器
-            //    $ 仍然是 JQuery 中的特殊对象. ajax 是一个重要的函数, 用于给服务器发送 HTTP 请求.
-            //    ajax 函数的参数是一个 { } json 对象
             $.ajax({
-                // 表示请求的 HTTP 方法为 get
                 type: "get",
-                // 表示请求的 url 为 searcher?query=[查询词]
                 url: "searcher?query=" + query,
-                // success 对应到一个匿名回调函数(相当于 C++ 中的 lambda), 会在收到响应时, 并且状态码为 200 时自动调用该回调
-                // data 参数就是响应结果的 body , status 就是状态码
                 success: function (data, status) {
-                    // 3. 如果请求成功了之后, 收到响应时, 调用该函数
                     buildResult(data);
                 }
             });
         }
 
-        // 这个 函数 用户根据服务器返回的 JSON 数据构造页面内容
         function buildResult(data) {
-            // 把这个代码再完成一下, 把 data 这个 json 数组构造成 html 内容  
-            // 构造的 html 结构就按照上面的 item div 的样子来整就行了. 
-            // data 中的每个元素构造一个 item 标签, 然后添加到 result 标签中. 
-
-            // 1. 先获取到 result 标签对应的对象
             let result = $(".result");
-            // 2. 清除 result 中原有的结果(上次搜索的结果)
             result.empty();
-            // 3. 遍历 data 这个 json 数组
-            //    item 这个对象就是依次取到 data 中的每个元素
             for (let item of data) {
-                // 4. 构造这个 item 中的内容
-                //  a) 构造 a 标签作为标题
                 let title = $("<a>", {
-                    // a 标签的文本内容就是 item 的标题
                     text: item.title,
-                    // a 标签点击后要跳转到对应的路径
                     href: item.url,
-                    // 点击 a 标签时用新标签页打开. 
                     target: "_blank",
                 });
-                //  b) 构造 p 标签作为描述
                 let desc = $("<p>", {
                     text: item.desc,
                 });
-                //  c) 构造 i 标签作为 url
                 let showUrl = $("<i>", {
                     text: item.url,
                 });
-                //  d) 把这几个标签加入到 item 标签中
                 let itemHtml = $("<div>", {
                     class: "item",
                 });
                 title.appendTo(itemHtml);
                 desc.appendTo(itemHtml);
                 showUrl.appendTo(itemHtml);
-                //  e) 把该 item 标签加入到 result 标签中
                 itemHtml.appendTo(result);
             }
         }
